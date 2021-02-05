@@ -7,45 +7,25 @@
 
 //window.addEventListener('DOMContentLoaded', function () {
 
-  window.addEventListener('DOMContentLoaded', function (event) {
-    alert('the page is loaded!')
+  window.addEventListener('DOMContentLoaded', function () {
   // let url = 'https://api.coindesk.com/v1/bpi/currentprice/USD.json'
+let form = document.querySelector('.bitcoin=form')
+form.addEventListener('submit', function(event) {
+  event.preventDefault ()
+  //console.log ('submitted')
+
+  let response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/USD.json') //always write await with fetch
+console.log(response)
+let json = await response.json() //promise means you need to add an await
+
+let amount = document.querySelector('#amount').nodeValue
+let rate = json.bpi.USD.rate_float
+let convertedAmount = amount * rate
+
+let outputElement = document.querySelector('.output')
+outputElement.innerHTML = 'your ${amount} bitcoin is work ${convertedamount'}
+
 })
 
-let clickeMeButton = document.querySelector('.click-me-button')
-clickMeButton = addEventListener('click',function(event){
-  console.log(event)
-  let outputElement = document.querySelector('.output')
-  //outputEleemnt.innerHTML = '<p>Click me! was clicked </p>'
-  outputElement.insertAdjacentHTML('beforeend',`
-  <p>Click me! was clicked</p>
-  `)
-})
-
-//add event listener has two arguements <- two input values. The first one is the name of an event. The brower
-//predefines a whole bunch of events, prewritten and the browser knows how to hear them (click, scroll, etc)
-//the second is a function that we are defining <- an anonymous function is the second arguement. Whatever we put in here doesn't happen until the event fires
-
-//you don't NEED to extract something to a function, you can dry up your code but you never have to
-let googleLink = document.querySelector('.google-link')
-googleLink.addEventListener('click', function(event) {
-  event.preventDefault()
-  console.log('something happened')
-
-  let outputElement = document.querySelector('.output')
-  outputElement.insertAdjacentHTML('beforeend', `
-  <p>Google was clicked</p>
-  `)
-})
-
-let nameInput = document.querySelector('#firstname')
-//console.log(nameInput)
-nameInput.addEventListener('change',function(event){
-let greetElement = document.querySelector('#greet')
-greetElement.innerHTML = `Hi, ${nameInpute.value}` //inputs don't have inner html they have .value
-
-if (nameInput.value.length >0) {
-  greetElement.innerHTML = 'Hi'
-}
 
 })

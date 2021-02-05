@@ -2,7 +2,7 @@
 // 2. find the "Chicago" city button using querySelector() and add a click event listener
 // 3. when event occurs (i.e. inside the listener function):
 //    a. find the forecast header (use the selector .forecast-header) and modify its innerHTML to `${location} Forecast`
-//    b. fetch the api response from https://api.weatherapi.com/v1/forecast.json?key=YOUR_KEY&q=LOCATION&days=3
+//    b. fetch the api response from https://api.weatherapi.com/v1/forecast.json?key=4498add9fff045f6bb873226212701&q=LOCATION&days=3
 //    c. extract the json using the .json() function
 //    d. find the array of daily forecast data, loop through it and, insert HTML with each day's forecast using the forecastHTML() function
 // 4. repeat step 2 & 3 for each city button
@@ -10,7 +10,7 @@
 // 6. add a submit event listener to the form
 //    a. get the user-entered location from the input
 //    b. find the forecast header (use the selector .forecast-header) and modify its innerHTML to `${location} Forecast`
-//    c. fetch the api response from https://api.weatherapi.com/v1/forecast.json?key=YOUR_KEY&q=LOCATION&days=3
+//    c. fetch the api response from https://api.weatherapi.com/v1/forecast.json?key=4498add9fff045f6bb873226212701&q=LOCATION&days=3
 //    d. extract the json using the .json() function
 //    e. find the array of daily forecast data, loop through it and, insert HTML with each day's forecast using the forecastHTML() function
 
@@ -29,4 +29,52 @@ function forecastHTML(dailyForecast) {
 // All your code can go inside of this event listener ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
 window.addEventListener('DOMContentLoaded', function() {
   // Your code ...
+
+  let chicago = document.querySelector('#chicago-forecast') //since it's an ID = # classes = .
+  chicago.addEventListener('click', async function(event) {
+      event.preventDefault()
+
+    let response = await fetch ('https://api.weatherapi.com/v1/forecast.json?key=4498add9fff045f6bb873226212701&q=${location}&days=3')
+    let json = await response.json()
+
+    let location = 'Chicago' // need to define the location variable
+    document.querySelector('.forecast-header').innerHTML = `${location} Forecast`  //first find the document
+
+    let forecast = json.forecast.forecastday
+
+    document.querySelector('.forecast').innerHTML = '' 
+    for (let i=0; i<forecast.length; i++)
+    console.log(forecast[i]);
+
+    let dailyForecast = forecast [i]
+    document.querySelector('.forecast').insertAdjacentHTML('beforeend', forecastHTML)
+
+
+    //BEGIN LOS ANGELES
+  
+    let losangeles = document.querySelector('#los-angeles-forecast') //since it's an ID = # classes = .
+    losangeles.addEventListener('click', async function(event) {
+        event.preventDefault()
+  
+      let response = await fetch ('https://api.weatherapi.com/v1/forecast.json?key=4498add9fff045f6bb873226212701&q=${location}&days=3')
+      let json = await response.json()
+  
+      let location = 'Los Angeles' // need to define the location variable
+      document.querySelector('.forecast-header').innerHTML = `${location} Forecast`  //first find the document
+  
+      let forecast = json.forecast.forecastday
+      for (let i=0; i<forecast.length; i++)
+      console.log(forecast[i]);
+  
+      let dailyForecast = forecast [i]
+      document.querySelector('.forecast').insertAdjacentHTML('beforeend', forecastHTML)
+
+  })
+     // console.log(Chicago)
+     //the Chicago forcast is not the class it's the ID
+
+
+
+  
+
 })
